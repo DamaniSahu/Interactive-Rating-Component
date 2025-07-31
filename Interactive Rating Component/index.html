@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  
+  <title>Interactive rating component</title>
+
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Overpass", sans-serif;
+    }
+
+    body{
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: hsl(216, 12%, 8%);
+    }
+
+    article{
+      width: 28%;
+      padding: 30px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background-color: hsl(213, 19%, 18%);
+    }
+
+    .starBox{
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: hsl(213, 19%, 23%);
+    }
+
+    .question{
+      margin-top: 25px;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: hsl(0, 100%, 100%);
+    }
+
+    .para{
+      line-height: 1.7;
+      font-size: 0.9rem;
+      color: hsl(217, 12%, 63%);
+    }
+
+    .rateBox{
+      display: flex;
+      gap: 20px;
+      margin: 12px 0;
+    }
+
+    .rate{
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 1rem;
+      font-weight: 700;
+      color: hsl(217, 12%, 73%);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: hsl(213, 19%, 23%);
+      transition: all 0.3s ease;
+    }
+
+    .rate:hover{
+      color: hsl(213, 19%, 18%);
+      background-color: hsl(25, 97%, 53%);
+    }
+
+    button{
+      color: hsl(216, 12%, 8%);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 36px;
+      background-color: hsl(25, 97%, 53%);
+      border: 1px solid hsl(25, 97%, 53%);
+    }
+
+    button:hover{
+      background-color: white;
+      border: 1px solid white;
+    }
+
+    /* Thank page coding */
+
+    .thank{
+      width: 28%;
+      padding: 50px 20px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      background-color: hsl(213, 19%, 18%);
+      color: white;
+      display: none;
+    }
+
+    .rating{
+      margin-top: 20px;
+      margin-bottom: 25px;
+      font-size: 0.9rem;
+      padding: 6px 20px;
+      border-radius: 16px;
+      color: hsl(25, 97%, 53%);
+      opacity: 0.7;
+      background-color: hsl(213, 19%, 23%);
+    }
+
+    .thank h2{
+      font-size: 1.7rem;
+      font-weight: 700;
+    }
+
+    .note{
+      font-size: 1rem;
+      line-height: 1.5;
+      text-align: center;
+      color: hsl(217, 12%, 63%);
+    }
+
+    @media(max-width: 768px) {
+      article{
+        width: 85%;
+        padding: 20px;
+      }
+
+      .rate{
+      width: 40px;
+      height: 40px;
+      }
+    }
+
+    @media(width: 768px) {
+      article{
+        width: 45%;
+      }
+    }
+
+     /* Thank page responsive coding */
+
+     @media(max-width: 768px) {
+      .thank{
+        width: 90%;
+      }
+     }
+
+     @media(width: 768px) {
+      .thank{
+        width: 40%;
+      }
+     }
+  </style>
+</head>
+<body>
+  <article>
+    <div class="starBox">
+      <img src="images/icon-star.svg" alt="icon-star">
+    </div>
+    <h2 class="question">
+      How did we do?
+    </h2>
+    <p class="para">
+      Please let us know how we did with your support request. All feedback is appreciated 
+      to help us improve our offering!
+    </p>
+
+   <div class="rateBox">
+    <div class="rate" data-value="1">1</div>
+    <div class="rate" data-value="2">2</div>
+    <div class="rate" data-value="3">3</div>
+    <div class="rate" data-value="4">4</div>
+    <div class="rate" data-value="5">5</div>
+   </div>
+
+    <button id="btn">Submit</button>
+  </article>
+
+  <div class="thank">
+    <img src="images/illustration-thank-you.svg" alt="illustration-thank-you">
+    <p class="rating">You selected <span>4 </span> out of 5</p>
+    <h2>
+       Thank you!
+    </h2>
+    <p class="note">
+      We appreciate you taking the time to give a rating. If you ever need more support, 
+      don’t hesitate to get in touch!
+    </p>
+  </div>
+
+  <script>
+    const ratings = document.querySelectorAll(".rate");
+    const output = document.querySelector("span");
+    const btn = document.querySelector("#btn");
+    const move = document.querySelector(".thank");
+    const form = document.querySelector("article");
+    let chooseRating = 0;
+
+    ratings.forEach(rate=> {
+      rate.addEventListener('click', () =>{
+
+        ratings.forEach(r => {
+          r.style.backgroundColor = "hsl(213, 19%, 23%)";
+          r.style.color = "hsl(217, 12%, 73%)";
+        });
+
+        rate.style.backgroundColor = "white";
+        rate.style.color = "black";
+
+        chooseRating = rate.getAttribute('data-value');
+      })
+    })
+
+    btn.addEventListener('click', () => {
+      if(chooseRating !== 0){
+        form.style.display = "none";
+        move.style.display = "flex";
+        output.textContent = chooseRating;
+      }else{
+          alert("Please select a rating!");
+      };
+    })
+
+  </script>
+</body>
+</html>
