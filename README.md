@@ -56,6 +56,6 @@ https://m-interactive-rating-component-master.netlify.app/
 
 ## 🔗 Connect with Me
 
-- LinkedIn: [Your Profile](#)
+- LinkedIn: https://www.linkedin.com/in/damanisahulinkdin/
 
 **Thank you for checking out my project!**
